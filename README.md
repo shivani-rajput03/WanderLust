@@ -854,19 +854,13 @@ Through this project, the following concepts are demonstrated:
 
 ---
 
-# 👩‍💻 Author
+👩‍💻 Author
 
-## Shivani Rajput
+Shivani Rajput
+Computer Science and Engineering Student
 
-Computer Science and Engineering
-
-### GitHub
-
-https://github.com/shivani-rajput03
-
-### LinkedIn
-
-https://www.linkedin.com/in/shivani-rajput-042046342
+🔗 GitHub: shivani-rajput03
+🔗 LinkedIn: Shivani Rajput
 
 ---
 
