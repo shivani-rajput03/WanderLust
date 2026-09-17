@@ -854,13 +854,15 @@ Through this project, the following concepts are demonstrated:
 
 ---
 
-👩‍💻 Author
+## 👩‍💻 Author
 
-Shivani Rajput
-Computer Science and Engineering Student
+### Shivani Rajput
+**Computer Science and Engineering Student**
 
-🔗 GitHub: shivani-rajput03
-🔗 LinkedIn: Shivani Rajput
+🔗 [GitHub: shivani-rajput03](https://github.com/shivani-rajput03)  
+🔗 [LinkedIn: Shivani Rajput](https://www.linkedin.com/in/shivani-rajput-042046342)
+
+> Built as an academic project to understand full-stack web development, database management, authentication, cloud storage, maps, and deployment.
 
 ---
 
