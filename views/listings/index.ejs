@@ -1,0 +1,411 @@
+<% layout("/layouts/boilerplate") %>
+
+<style>
+    .filters-container {
+        position: relative;
+        display: flex;
+        align-items: center;
+        margin-top: 1rem;
+    }
+
+    #filters {
+        display: flex;
+        overflow-x: hidden;
+        flex-wrap: nowrap;
+        scroll-behavior: smooth;
+        width: 100%;
+        align-items: center;
+    }
+
+    .filter {
+        text-align: center;
+        margin-right: 2rem;
+        margin-top: 2rem;
+        min-width: 65px;
+        opacity: 0.7;
+    }
+
+    .filter:hover {
+        opacity: 1;
+        cursor: pointer;
+    }
+
+    .filter p {
+        font-size: 0.8rem;
+        margin-top: 0.5rem;
+    }
+
+    .filter.active {
+        border-bottom: 2px solid black;
+        margin-top: 0;
+        opacity: 1;
+    }
+
+    .filter i {
+        font-size: 1.3rem;
+    }
+
+    #scrollRightBtn,
+    #scrollLeftBtn {
+        background-color: white;
+        color: #333;
+        border: none;
+        cursor: pointer;
+        font-size: 2rem;
+        border-radius: 4px;
+        z-index: 2;
+    }
+
+    #scrollRightBtn {
+        margin-left: 1rem;
+        padding: 0.5rem 1rem 0.5rem 0.5rem;
+    }
+
+    #scrollLeftBtn {
+        margin-right: 1rem;
+        padding: 0.5rem 0.5rem 0.5rem 1rem;
+    }
+
+    .tax-toggle {
+        border: 1px solid black;
+        width: 230px;
+        border-radius: 1rem;
+        height: 3.25rem;
+        padding: 1rem;
+        margin-left: 2rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+    }
+
+    .tax-info {
+        display: none;
+    }
+
+    .listing-card {
+        border: none !important;
+        margin-bottom: 2rem;
+    }
+
+    .listing-card img {
+        border-radius: 1rem;
+        object-fit: cover;
+    }
+
+    .listing-link {
+        text-decoration: none;
+        color: inherit;
+    }
+</style>
+
+
+<!-- FILTERS -->
+
+<div class="filters-container">
+
+    <button id="scrollLeftBtn" style="display: none;">
+        &laquo;
+    </button>
+
+    <div id="filters">
+
+        <div class="filter active" data-filter="All">
+            <div><i class="fa-solid fa-globe"></i></div>
+            <p>All</p>
+        </div>
+
+        <div class="filter" data-filter="Trending">
+            <div><i class="fa-solid fa-fire"></i></div>
+            <p>Trending</p>
+        </div>
+
+        <div class="filter" data-filter="Rooms">
+            <div><i class="fa-solid fa-bed"></i></div>
+            <p>Rooms</p>
+        </div>
+
+        <div class="filter" data-filter="Iconic cities">
+            <div><i class="fa-solid fa-mountain-city"></i></div>
+            <p>Cities</p>
+        </div>
+
+        <div class="filter" data-filter="Mountains">
+            <div><i class="fa-solid fa-mountain"></i></div>
+            <p>Mountains</p>
+        </div>
+
+        <div class="filter" data-filter="Castles">
+            <div><i class="fa-brands fa-fort-awesome"></i></div>
+            <p>Castles</p>
+        </div>
+
+        <div class="filter" data-filter="Amazing pools">
+            <div><i class="fa-solid fa-person-swimming"></i></div>
+            <p>Pools</p>
+        </div>
+
+        <div class="filter" data-filter="Camping">
+            <div><i class="fa-solid fa-campground"></i></div>
+            <p>Camping</p>
+        </div>
+
+        <div class="filter" data-filter="Arctic">
+            <div><i class="fa-regular fa-snowflake"></i></div>
+            <p>Arctic</p>
+        </div>
+
+        <div class="filter" data-filter="Farms">
+            <div><i class="fa-solid fa-cow"></i></div>
+            <p>Farms</p>
+        </div>
+
+        <div class="filter" data-filter="Beach">
+            <div><i class="fa-solid fa-water"></i></div>
+            <p>Beach</p>
+        </div>
+
+    </div>
+
+    <button id="scrollRightBtn">
+        &raquo;
+    </button>
+
+
+    <!-- TAX -->
+
+    <div class="tax-toggle">
+
+        <div class="form-check-reverse form-switch">
+
+            <input
+                class="form-check-input"
+                type="checkbox"
+                role="switch"
+                id="taxSwitch"
+            >
+
+            <label
+                class="form-check-label"
+                for="taxSwitch"
+            >
+                Total after taxes
+            </label>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- LISTINGS -->
+
+<div class="row row-cols-lg-3 row-cols-md-2 row-cols-sm-1 mt-3">
+
+    <% for(let listing of allListings) { %>
+
+        <a
+            href="/listings/<%= listing._id %>"
+            class="listing-link"
+        >
+
+            <div
+                class="card listing-card col"
+                data-category="<%= listing.category %>"
+            >
+
+                <img
+                    src="<%= listing.image.url %>"
+                    class="card-img-top"
+                    alt="Listing image"
+                    style="height: 20rem;"
+                >
+
+                <div class="card-body">
+
+                    <p class="card-text">
+
+                        <b>
+                            <%= listing.title %>
+                        </b>
+
+                        <br>
+
+                       <span class="listing-price" data-price="<%= listing.price %>">
+    &#8377;<%= listing.price.toLocaleString("en-IN") %>
+</span>
+/ night
+
+                    </p>
+
+                </div>
+
+            </div>
+
+        </a>
+
+    <% } %>
+
+</div>
+
+
+<script>
+
+    // TAX SWITCH
+
+const taxSwitch = document.getElementById("taxSwitch");
+
+taxSwitch.addEventListener("change", () => {
+
+    const prices = document.querySelectorAll(".listing-price");
+
+    prices.forEach((price) => {
+
+        const originalPrice = Number(price.dataset.price);
+
+        if (taxSwitch.checked) {
+
+            const taxPrice = Math.round(originalPrice * 1.18);
+
+            price.innerText =
+                "₹" + taxPrice.toLocaleString("en-IN");
+
+        } else {
+
+            price.innerText =
+                "₹" + originalPrice.toLocaleString("en-IN");
+
+        }
+
+    });
+
+});
+
+
+    // CATEGORY SCROLL
+
+    const filtersContainer =
+        document.getElementById("filters");
+
+    const scrollLeftBtn =
+        document.getElementById("scrollLeftBtn");
+
+    const scrollRightBtn =
+        document.getElementById("scrollRightBtn");
+
+
+    function updateButtonVisibility() {
+
+        const scrollLeft =
+            filtersContainer.scrollLeft;
+
+        const maxScrollLeft =
+            filtersContainer.scrollWidth -
+            filtersContainer.clientWidth;
+
+
+        if (scrollLeft > 0) {
+            scrollLeftBtn.style.display = "block";
+        } else {
+            scrollLeftBtn.style.display = "none";
+        }
+
+
+        if (scrollLeft < maxScrollLeft) {
+            scrollRightBtn.style.display = "block";
+        } else {
+            scrollRightBtn.style.display = "none";
+        }
+
+    }
+
+
+    filtersContainer.addEventListener(
+        "scroll",
+        updateButtonVisibility
+    );
+
+
+    scrollRightBtn.addEventListener("click", () => {
+
+        filtersContainer.scrollBy({
+            left: 200,
+            behavior: "smooth"
+        });
+
+    });
+
+
+    scrollLeftBtn.addEventListener("click", () => {
+
+        filtersContainer.scrollBy({
+            left: -200,
+            behavior: "smooth"
+        });
+
+    });
+
+
+    window.addEventListener(
+        "resize",
+        updateButtonVisibility
+    );
+
+
+    document.addEventListener(
+        "DOMContentLoaded",
+        updateButtonVisibility
+    );
+
+
+    // CATEGORY FILTER
+
+    const filters =
+        document.querySelectorAll(".filter");
+
+    const listingLinks =
+        document.querySelectorAll(".listing-link");
+
+
+    filters.forEach(filter => {
+
+        filter.addEventListener("click", () => {
+
+            const category =
+                filter.getAttribute("data-filter");
+
+
+            filters.forEach(f => {
+                f.classList.remove("active");
+            });
+
+            filter.classList.add("active");
+
+
+            listingLinks.forEach(link => {
+
+                const card =
+                    link.querySelector(".listing-card");
+
+
+                if (
+                    category === "All" ||
+                    card.getAttribute("data-category") === category
+                ) {
+
+                    link.style.display = "block";
+
+                } else {
+
+                    link.style.display = "none";
+
+                }
+
+            });
+
+        });
+
+    });
+
+</script>
