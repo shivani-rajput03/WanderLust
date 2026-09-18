@@ -3,7 +3,7 @@ const app = express();
 const mongoose = require("mongoose");
 const path = require("path");
 const methodOverride = require("method-override");
-const ejsMAte = require("ejs-mAte");
+const ejsMAte = require("ejs-mate");
 const ExpressError = require("./utils/Expresserror.js");
 const session = require("express-session");
 const flash = require("connect-flash");
@@ -36,7 +36,7 @@ app.set("view engine", "ejs")
 app.set("views", path.join(__dirname, "views"));
 app.use(express.urlencoded({extended: true}));
 app.use(methodOverride("_method"));
-app.engine('ejs', ejsMAte);
+app.engine('ejs', ejsMate);
 app.use(express.static(path.join(__dirname,"/public")));
 app.use((req, res, next) => {
     res.locals.MAP_TOKEN = process.env.MAP_TOKEN;
